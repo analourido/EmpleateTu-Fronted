@@ -1,4 +1,5 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react'
+import { loginUser } from '../services/auth.services'
 
 function Login() {
 
@@ -9,10 +10,20 @@ function Login() {
         }
     )
 
+    const [message, setMessage] = useState('')
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
-        // ???
+        // mensje por post al api del backend
+        try {
+            await loginUser(form.email, form.password)
+            console.log('login successfull')
+            setMessage('login successfull')
+            // redirigir a otr apágina (ofertas)
+        } catch (error) {
+            const msg = error instanceof Error ? error.message : 'Error desconocido'
+            setMessage(msg)
+        }
     }
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -39,6 +50,7 @@ function Login() {
                     <label htmlFor="remember" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
                 </div>
                 <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                {message}
             </form>
 
         </>
