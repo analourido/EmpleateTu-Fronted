@@ -5,6 +5,9 @@ npm i react-router-dom
 ## instalar tailwind (ver documentacion en su pagina web)
 npm install tailwindcss @tailwindcss/vite
 
+## dependencia para toasts
+npm i react-hot-toast
+
 ```
 
 --> Libreria para componentes de tailwind : Flowbite
